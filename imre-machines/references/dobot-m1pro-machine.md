@@ -36,6 +36,38 @@ Each Dobot M1Pro machine command follows the standard protocol command structure
 
 If the user requests a position that is not listed here, verify the requested location before generating a command. Ask for the exact position or confirm whether one of the hardcoded positions should be used. Positions are always in `[x, y, z, r]` coordinates.
 
+### Tube Positions
+
+The tube rack is a 4-row (A-D) x 6-column (1-6) grid, with one cap position.
+
+| Position | Coordinates |
+| -------- | ----------- |
+| CAP      | `[57, 275, 21, -20]` |
+| A1       | `[131, -231, 14, -20]` |
+| A2       | `[111, -231, 14, -20]` |
+| A3       | `[91, -231, 14, -20]` |
+| A4       | `[71, -231, 14, -20]` |
+| A5       | `[51, -231, 14, -20]` |
+| A6       | `[31, -231, 14, -20]` |
+| B1       | `[131.33, -211.3333333, 14, -20]` |
+| B2       | `[111.33, -211.3333333, 14, -20]` |
+| B3       | `[91.33, -211.3333333, 14, -20]` |
+| B4       | `[71.33, -211.3333333, 14, -20]` |
+| B5       | `[51.11, -211.3333333, 14, -20]` |
+| B6       | `[31.33, -211.3333333, 14, -20]` |
+| C1       | `[131.67, -191.6666667, 14, -20]` |
+| C2       | `[111.67, -191.6666667, 14, -20]` |
+| C3       | `[91.67, -191.6666667, 14, -20]` |
+| C4       | `[71.67, -191.6666667, 14, -20]` |
+| C5       | `[51.67, -191.6666667, 14, -20]` |
+| C6       | `[31.67, -191.6666667, 14, -20]` |
+| D1       | `[132, -172, 14, -20]` |
+| D2       | `[112, -172, 14, -20]` |
+| D3       | `[92, -172, 14, -20]` |
+| D4       | `[72, -172, 14, -20]` |
+| D5       | `[52, -172, 14, -20]` |
+| D6       | `[32, -172, 14, -20]` |
+
 ### Centrifuge
 
 There are 2 centrifuges, both have 6 slots in a circular formation. Slots are evenly spaced at 60° intervals.
