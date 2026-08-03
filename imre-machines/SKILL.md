@@ -34,6 +34,25 @@ Before command generation:
 - Run `puda machine commands pipqubotv3` to understand available commands
 - Follow constraints and sequencing in `references/pipqubotv3-machine.md`
 
+### PipQuBot MOF Machine (`machine_id: "pipqubot_mof"`)
+
+Use for **MOF liquid handling, deck operations, and position-dependent gantry movement**.
+
+Capabilities:
+- Pipetting workflows: aspirate, dispense, attach tip, drop tip, and blowout
+- Load or remove labware in the eight-slot A1-D2 deck
+- Move to a loaded labware well or move the Z axis by a signed relative distance
+
+Use this machine when:
+- The user explicitly targets the MOF PipQuBot
+- A workflow uses MOF deck slots or labware wells
+- A liquid-handling step requires the MOF gantry or Sartorius pipette
+
+Before command generation:
+- Refer to: [pipqubot-mof-machine](references/pipqubot_mof.md)
+- Run `puda machine commands pipqubot_mof` to understand available commands
+- Follow the position, movement, and tip-state constraints in `references/pipqubot_mof.md`
+
 ### Centrifuge Machine (`machine_id: "centrifuge"`)
 
 Use for **centrifugation, spin-downs, and phase or pellet separation**.
