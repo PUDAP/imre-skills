@@ -36,42 +36,6 @@ Each PipQuBot MOF machine command follows the standard protocol command structur
 - The driver exposes `move_to_well(deck_slot, well_name)` and signed
   `move_z_relative(distance_mm)` movement.
 
-## Positions
-
-If a requested position is not listed here, ask for a supported deck slot and
-well instead of inventing coordinates. 
-
-### BioShake Positions
-
-The BioShake is a 4-row (A-D) x 6-column (1-6) grid.
-
-| Position | Coordinates            |
-| -------- | ---------------------- |
-| A1       | `[283, -177, 57, -70]` |
-| A2       | `[263, -176.8, 57, -70]` |
-| A3       | `[243, -176.6, 57, -70]` |
-| A4       | `[223, -176.4, 57, -70]` |
-| A5       | `[203, -176.2, 57, -70]` |
-| A6       | `[183, -176, 57, -70]` |
-| B1       | `[283, -196.83, 57, -70]` |
-| B2       | `[263, -196.63, 57, -70]` |
-| B3       | `[243, -196.43, 57, -70]` |
-| B4       | `[223, -196.23, 57, -70]` |
-| B5       | `[203, -196.03, 57, -70]` |
-| B6       | `[183, -195.83, 57, -70]` |
-| C1       | `[283, -216.67, 57, -70]` |
-| C2       | `[263, -216.47, 57, -70]` |
-| C3       | `[243, -216.27, 57, -70]` |
-| C4       | `[223, -216.07, 57, -70]` |
-| C5       | `[203, -215.87, 57, -70]` |
-| C6       | `[183, -215.67, 57, -70]` |
-| D1       | `[283, -236.5, 57, -70]` |
-| D2       | `[263, -236.3, 57, -70]` |
-| D3       | `[243, -236.1, 57, -70]` |
-| D4       | `[223, -235.9, 57, -70]` |
-| D5       | `[203, -235.7, 57, -70]` |
-| D6       | `[183, -235.5, 57, -70]` |
-
 ## Rules and Restrictions
 
 The following rules **must** be strictly followed when generating PipQuBot MOF machine commands:
