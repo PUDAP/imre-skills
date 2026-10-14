@@ -109,6 +109,16 @@ Before command generation:
 - Run `puda machine commands bioshake` to understand available commands
 
 
+## PUDA 0.1.x edge behavior
+
+Edges on puda SDK 0.0.18 or later (CLI 0.1.x) behave differently from older edges:
+
+- **Commands:** an edge advertises only methods decorated `@command`. Always run `puda machine commands <machine_id>` rather than assuming a method is callable; undecorated driver methods (for example raw serial helpers) are not reachable over NATS.
+- **Live readings are telemetry streams, not `tlm.pos`:** each edge publishes readings on `puda.<machine_id>.tlm.stream.<name>` (for example `status` for bioshake, `position` for centrifuge, `pose` for dobot, `pos` for the capper and pipetting gantries). Run `puda machine info <machine_id>` to list a machine's streams and `puda machine watch 'puda.<machine_id>.tlm.stream.>'` to read them. Heartbeat is every 5 s.
+- **Failures raise:** a command that fails returns an error response instead of `{"result": false}`. For example, bioshake `home`, `open_clamp` and `close_clamp` now raise on timeout.
+- **Safety context:** `puda machine commands` shows `@safety` notes (hazards, requirements) for motion and actuator commands; read them before generating a protocol.
+- **Waiting:** a protocol step named `wait` with `params.seconds` is handled by the CLI and is not sent to a machine.
+
 ## Selection Workflow
 
 1. Parse user intent and identify the tasks.

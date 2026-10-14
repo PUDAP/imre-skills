@@ -5,8 +5,8 @@ Use this when a BioShake operation fails because the device does not report its 
 ## Clamp open/close verification
 
 1. Before `open_clamp`, require fresh queue emptiness and an edge-mediated status probe proving speed 0. Because the device requires the tablar at home before opening, run or verify `home` first when current home position is not directly available.
-2. Treat the outer PUDA response and the driver result as separate layers. A response with `status="success"` only proves the method returned without raising. If `open_clamp` or `close_clamp` returns `data.result=false`, the requested clamp transition is **not confirmed**.
-3. `get_position` values such as `elm_state=-1` or `shake_state=-1` mean unknown/unreadable telemetry, not open, closed, stopped, or healthy. Likewise, a raw edge-mediated `getElmState` query that returns no payload is not verification.
+2. Treat the outer PUDA response and the driver result as separate layers. A response with `status="success"` only proves the method returned without raising. On the current driver (puda SDK 0.0.18+), `home`, `open_clamp` and `close_clamp` raise `TimeoutError` when the transition is not reached, so a timeout is reported as an error response. Older edges instead returned `data.result=false`; in either case the requested clamp transition is **not confirmed**.
+3. `status` telemetry values (`puda.<machine_id>.tlm.stream.status`) such as `elm_state=-1` or `shake_state=-1` mean unknown/unreadable telemetry, not open, closed, stopped, or healthy. (Older edges exposed this as a `get_position` command and a raw `query`; current edges expose neither.)
 4. Do not automatically retry an unconfirmed clamp command. Preserve the successful home boundary separately, require physical observation or recover the serial edge, then issue at most one reviewed retry.
 5. For a confirmed result, require one of:
    - command result `true` plus a valid post-command ELM state matching the request; or
@@ -26,15 +26,15 @@ Use this when a BioShake operation fails because the device does not report its 
 
 ## Clamp-command recovery
 
-Use this when `open_clamp` or `close_clamp` times out with `result=false`, especially when `get_position()` also reports `elm_state=-1` or `shake_state=-1`.
+Use this when `open_clamp` or `close_clamp` times out (an error response, or `result=false` on older edges), especially when the `status` stream also reports `elm_state=-1` or `shake_state=-1`.
 
-1. Treat `result=false` as a failed or unverified actuator command; never report the clamp as open/closed from the outer PUDA `status=success` alone.
+1. Treat a timeout error or `result=false` as a failed or unverified actuator command; never report the clamp as open/closed from the outer PUDA `status=success` alone.
 2. Confirm the shaker is not moving (`speed=0`), the run is inactive, and both queue counters are zero. Capture a fresh clear enclosure frame before recovery.
 3. Inspect the edge logs and stable serial mapping. The MOF BioShake uses `/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_AB0NCAGV-if00-port0`; do not substitute a transient `/dev/ttyUSB<N>` path.
 4. Recreate or restart only the BioShake edge to reopen the stale serial session. Verify startup logs show connection at 9600 baud, NATS readiness, and empty consumers. Edge startup must not issue physical motion.
-5. Run a fresh read-only `get_position`. Require numeric telemetry rather than `-1`: `shake_state=3` means home/locked and `elm_state=1` means closed; `elm_state=3` means open for the deployed driver.
-6. Capture a second fresh clear-camera gate, then retry the exact validated home-plus-clamp protocol once. Require `result=true`.
-7. Verify with a post-command `get_position`, empty queues, and a post-action frame. If a person enters only after controller-confirmed completion, dispatch no more motion until a new clear-camera gate.
+5. Take a fresh `status` telemetry sample. Require numeric telemetry rather than `-1`: `shake_state=3` means home/locked and `elm_state=1` means closed; `elm_state=3` means open for the deployed driver.
+6. Capture a second fresh clear-camera gate, then retry the exact validated home-plus-clamp protocol once. Require a successful response (and `result=true` on older edges).
+7. Verify with a post-command `status` sample, empty queues, and a post-action frame. If a person enters only after controller-confirmed completion, dispatch no more motion until a new clear-camera gate.
 
 ## USB re-enumeration recovery
 

@@ -47,7 +47,7 @@ Before execution, mechanically audit every protocol:
 
 ## Operator-requested dwell before gripper release
 
-The M1Pro command surface may have no `wait`/`sleep` command. If the operator says, for example, “after placing, wait 2 seconds, then open the gripper and raise Z,” do not silently omit the dwell or delay before the descent. Implement each transfer as a recoverable paired boundary:
+The M1Pro command surface may have no `wait`/`sleep` command. (With PUDA CLI 0.1.x, a protocol step named `wait` with `params.seconds` is handled client-side by the CLI and is not sent to a machine; confirm with the `puda-protocol` skill whether it fits before falling back to the paired boundary below.) If the operator says, for example, “after placing, wait 2 seconds, then open the gripper and raise Z,” do not silently omit the dwell or delay before the descent. Implement each transfer as a recoverable paired boundary:
 
 **Phase A — pick/place/hold (5 commands)**
 
