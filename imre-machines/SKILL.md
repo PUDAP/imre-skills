@@ -53,6 +53,25 @@ Before command generation:
 - Run `puda machine commands pipqubot_mof` to understand available commands
 - Follow the position, movement, and tip-state constraints in `references/pipqubot_mof.md`
 
+### PipQuBot XL Machine (`machine_id: "pipqubot-xl"`)
+
+Use for **16-slot liquid handling and capper positioning**.
+
+Capabilities:
+- Pipetting workflows: aspirate, dispense, attach tip, drop tip, and blowout
+- Load, inspect, or remove labware in the 16-slot A1-D4 deck
+- Position the capper over a loaded labware well using the A axis
+
+Use this machine when:
+- The user explicitly targets the PipQuBot XL
+- A workflow requires the XL 4x4 deck
+- A workflow combines Sartorius pipetting with capper positioning
+
+Before command generation:
+- Refer to: [pipqubot-xl-machine](references/pipqubot_xl.md)
+- Run `puda machine commands pipqubot-xl` to understand available commands and safety context
+- Follow the homing, deck, tip-state, height, and capper constraints in `references/pipqubot_xl.md`
+
 ### Centrifuge Machine (`machine_id: "centrifuge"`)
 
 Use for **centrifugation, spin-downs, and phase or pellet separation**.
