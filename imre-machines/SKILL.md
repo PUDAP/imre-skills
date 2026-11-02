@@ -108,6 +108,46 @@ Before command generation:
 - Run `puda machine commands dobot-m1pro` to understand available commands
 - Follow constraints in `references/dobot-m1pro-machine.md`
 
+### Dobot M1Pro Left Machine (`machine_id: "dobot-left"`)
+
+Use for **left-arm Cartesian motion and gripper-based transfers**.
+
+Capabilities:
+- Read robot pose and joint angles
+- Home, rotate the wrist, and move through collision-aware staged paths
+- Pick, place, and perform composite pick-and-place operations
+- Open and close the gripper
+
+Use this machine when:
+- The user explicitly requests the left Dobot
+- A transfer is assigned to the left arm's workspace
+- A workflow needs `dobot-left` pose telemetry or motion
+
+Before command generation:
+- Refer to: [dobot-m1pro-left-machine](references/dobot-m1pro-left-machine.md)
+- Run `puda machine commands dobot-left`
+- Do not reuse right-arm or legacy `dobot-m1pro` coordinates without explicit calibration confirmation
+
+### Dobot M1Pro Right Machine (`machine_id: "dobot-right"`)
+
+Use for **right-arm Cartesian motion and gripper-based transfers**.
+
+Capabilities:
+- Read robot pose and joint angles
+- Home, rotate the wrist, and move through collision-aware staged paths
+- Pick, place, and perform composite pick-and-place operations
+- Open and close the gripper
+
+Use this machine when:
+- The user explicitly requests the right Dobot
+- A transfer is assigned to the right arm's workspace
+- A workflow needs `dobot-right` pose telemetry or motion
+
+Before command generation:
+- Refer to: [dobot-m1pro-right-machine](references/dobot-m1pro-right-machine.md)
+- Run `puda machine commands dobot-right`
+- Do not reuse left-arm or legacy `dobot-m1pro` coordinates without explicit calibration confirmation
+
 ### BioShake Machine (`machine_id: "bioshake"`)
 
 Use for **shaking, heating, and plate clamping operations**.
