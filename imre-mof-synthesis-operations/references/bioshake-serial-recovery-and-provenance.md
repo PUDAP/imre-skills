@@ -36,6 +36,10 @@ Use this when `open_clamp` or `close_clamp` times out (an error response, or `re
 6. Capture a second fresh clear-camera gate, then retry the exact validated home-plus-clamp protocol once. Require a successful response (and `result=true` on older edges).
 7. Verify with a post-command `status` sample, empty queues, and a post-action frame. If a person enters only after controller-confirmed completion, dispatch no more motion until a new clear-camera gate.
 
+## Host broker on imre-mof
+
+The Compose service uses `network_mode: host`, so `NATS_SERVERS=nats://localhost:4222` reaches the broker on this machine. Recreate with `docker compose up -d --no-build bioshake` after a network-mode change; `docker start bioshake-edge` keeps the old network. Set both `BIOSHAKE_HOST_PORT` and `BIOSHAKE_PORT` to the by-id path in the clamp-command recovery section. Host-user operation needs `dialout` membership and a refreshed login. The container runs with its own device permissions.
+
 ## USB re-enumeration recovery
 
 1. Require the BioShake run to be inactive and both queue counters to be zero.

@@ -165,7 +165,9 @@ Use this machine when:
 - The workflow requires holding a plate at temperature while shaking
 
 Before command generation:
+- Refer to: [bioshake-machine](references/bioshake-machine.md)
 - Run `puda machine commands bioshake` to understand available commands
+- Use `heat_shake` for simultaneous heating and shaking; never overlap `set_temp` and `shake`
 
 
 ## PUDA 0.1.x edge behavior
